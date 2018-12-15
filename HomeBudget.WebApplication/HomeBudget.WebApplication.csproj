@@ -190,12 +190,29 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ExpensesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\RevenuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812151613124_initialCommit.cs" />
+    <Compile Include="Migrations\201812151613124_initialCommit.Designer.cs">
+      <DependentUpon>201812151613124_initialCommit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812151635284_dropCategory.cs" />
+    <Compile Include="Migrations\201812151635284_dropCategory.Designer.cs">
+      <DependentUpon>201812151635284_dropCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812151637167_addCategoryTable.cs" />
+    <Compile Include="Migrations\201812151637167_addCategoryTable.Designer.cs">
+      <DependentUpon>201812151637167_addCategoryTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\FinanceViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -235,8 +252,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -258,6 +273,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
+    <Content Include="Views\Expenses\Index.cshtml" />
+    <Content Include="Views\Revenues\Index.cshtml" />
+    <Content Include="Views\Revenues\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -274,6 +293,27 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201812151613124_initialCommit.resx">
+      <DependentUpon>201812151613124_initialCommit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812151635284_dropCategory.resx">
+      <DependentUpon>201812151635284_dropCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812151637167_addCategoryTable.resx">
+      <DependentUpon>201812151637167_addCategoryTable.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HomeBudget.Database\HomeBudget.Database.csproj">
+      <Project>{3bb2e327-7a74-47f1-b653-df8f3fa8bdfb}</Project>
+      <Name>HomeBudget.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HomeBudget.Domain\HomeBudget.Domain.csproj">
+      <Project>{e97d46e1-8d05-4d65-86a4-c7c33b3992fc}</Project>
+      <Name>HomeBudget.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

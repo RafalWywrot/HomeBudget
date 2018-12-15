@@ -6,8 +6,9 @@ using System.Web.Mvc;
 
 namespace HomeBudget.WebApplication.Controllers
 {
-    public class HomeController : Controller
+    public class ExpensesController : Controller
     {
+        // GET: Expenses
         public ActionResult Index()
         {
             return View();

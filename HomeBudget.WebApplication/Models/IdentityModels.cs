@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using HomeBudget.Database;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -24,7 +25,7 @@ namespace HomeBudget.WebApplication.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-
+        public DbSet<Category> Categories { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
