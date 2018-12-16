@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HomeBudget.Domain
+namespace HomeBudget.Domain.Interfaces
 {
-    public class Class1
+    public class IRepositoryCollection
     {
     }
 }

@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using HomeBudget.WebApplication.Models;
-
+using HomeBudget.Domain;
 namespace HomeBudget.WebApplication.Controllers
 {
     [Authorize]

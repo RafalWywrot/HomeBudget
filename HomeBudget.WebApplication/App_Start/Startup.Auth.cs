@@ -6,7 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using HomeBudget.WebApplication.Models;
-
+using HomeBudget.Domain;
 namespace HomeBudget.WebApplication
 {
     public partial class Startup

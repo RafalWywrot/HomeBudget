@@ -1,4 +1,4 @@
-namespace HomeBudget.WebApplication.Migrations
+namespace HomeBudget.Domain.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

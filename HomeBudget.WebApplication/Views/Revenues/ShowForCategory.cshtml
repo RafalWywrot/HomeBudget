@@ -1,0 +1,53 @@
+﻿@model IEnumerable<HomeBudget.WebApplication.Models.FinanceViewModel>
+
+
+<a class="btn btn-primary" href="@Url.Action("Add","Revenues", new { categoryId = ViewBag.CategoryId })">Add</a>
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @using (Html.BeginForm("Delete","Revenues",new { id = item.Id }, FormMethod.Post, null ))
+                {
+                    <input type="submit" value="delete" class="btn btn-default" />
+                }
+            </td>
+        </tr>
+    }
+
+</table>
