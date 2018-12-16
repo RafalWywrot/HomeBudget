@@ -19,18 +19,7 @@ namespace HomeBudget.WebApplication.Controllers
         public ActionResult ShowForCategory(int categoryId)
         {
             var reveneus = _unitOfWork.FinanceRepository.GetOverview(x => x.CategoryId == categoryId).ToList();
-            var model = new List<FinanceViewModel>();
-            foreach (var revenue in reveneus)
-            {
-                model.Add(new FinanceViewModel()
-                    {
-                        Id = revenue.Id,
-                        CategoryId = categoryId,
-                        CategoryName = revenue.Category.Name,
-                        Name = revenue.Name,
-                        Price = revenue.Value
-                    });
-            }
+            var model = Mapper.Map<List<RevenueViewModel>>(reveneus);
             ViewBag.CategoryId = categoryId;
             return View(model);
         }
@@ -38,7 +27,7 @@ namespace HomeBudget.WebApplication.Controllers
         public ActionResult Add(int categoryId)
         {
             var category = _unitOfWork.CategoryRepository.GetDetail(x => x.Id == categoryId);
-            var model = new FinanceViewModel()
+            var model = new RevenueViewModel()
             {
                 CategoryId = category.Id,
                 CategoryName = category.Name
@@ -46,18 +35,14 @@ namespace HomeBudget.WebApplication.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult Add(FinanceViewModel model)
+        public ActionResult Add(RevenueViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var modelDao = new Finance()
-                {
-                    Value = model.Price,
-                    CategoryId = model.CategoryId,
-                    Name = model.Name
-                };
-                _unitOfWork.FinanceRepository.Add(modelDao);
+                var modelDAO = Mapper.Map<Finance>(model);
+                _unitOfWork.FinanceRepository.Add(modelDAO);
                 _unitOfWork.SaveChanges();
+                return RedirectToAction("ShowForCategory", new { categoryId = model.CategoryId });
             }
             return View(model);
         }
@@ -65,18 +50,11 @@ namespace HomeBudget.WebApplication.Controllers
         public ActionResult Edit(int id)
         {
             var finanse = _unitOfWork.FinanceRepository.GetDetail(x => x.Id == id);
-            var model = new FinanceViewModel()
-            {
-                Id = finanse.Id,
-                CategoryId = finanse.Category.Id,
-                CategoryName = finanse.Category.Name,
-                Name = finanse.Name,
-                Price = finanse.Value
-            };
+            var model = Mapper.Map<RevenueViewModel>(finanse);
             return View(model);
         }
         [HttpPost]
-        public ActionResult Edit(FinanceViewModel model)
+        public ActionResult Edit(RevenueViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -85,6 +63,7 @@ namespace HomeBudget.WebApplication.Controllers
                 finanse.Value = model.Price;
                 finanse.CreateDateTime = DateTime.Now;
                 _unitOfWork.SaveChanges();
+                return RedirectToAction("ShowForCategory", new { categoryId = model.CategoryId });
             }
             return View(model);
         }
@@ -94,7 +73,7 @@ namespace HomeBudget.WebApplication.Controllers
             var finanse = _unitOfWork.FinanceRepository.GetDetail(x => x.Id == id);
             _unitOfWork.FinanceRepository.Delete(finanse);
             _unitOfWork.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ShowForCategory", new { categoryId = finanse.CategoryId });
         }
     }
 }

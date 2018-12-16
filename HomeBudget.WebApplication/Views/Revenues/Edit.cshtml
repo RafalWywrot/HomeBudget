@@ -1,4 +1,4 @@
-﻿@model HomeBudget.WebApplication.Models.FinanceViewModel
+﻿@model HomeBudget.WebApplication.Models.RevenueViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -57,5 +57,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "ShowForCategory", "Revenues", new { categoryId = Model.CategoryId}, null)
 </div>

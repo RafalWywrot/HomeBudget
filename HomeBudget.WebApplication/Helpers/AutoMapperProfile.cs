@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HomeBudget.Database;
 using HomeBudget.WebApplication.Models;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,29 @@ namespace HomeBudget.WebApplication.Helpers
     {
         public AutomapperProfile()
         {
-            CreateMap<DAO.Category, FinanceViewModel>();
+            CreateMap<DAO.Finance, RevenueViewModel>()
+                .ForMember(
+                    dest => dest.Price,
+                    opt => opt.MapFrom(src => src.Value)
+                )
+                .ForMember(
+                    dest => dest.CategoryId,
+                    opt => opt.MapFrom(src => src.Category.Id)
+                )
+                .ForMember(
+                    dest => dest.CategoryName,
+                    opt => opt.MapFrom(src => src.Category.Name)
+                );
+            CreateMap<RevenueViewModel, DAO.Finance>()
+              .ForMember(
+                  dest => dest.Value,
+                  opt => opt.MapFrom(src => src.Price)
+              );
+            CreateMap<RevenueViewModel, DAO.Category>()
+              .ForMember(
+                  dest => dest.Id,
+                  opt => opt.MapFrom(src => src.CategoryId)
+              );
         }
     }
 }
