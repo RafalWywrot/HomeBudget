@@ -62,6 +62,7 @@ namespace HomeBudget.WebApplication.Controllers
                 finanse.Name = model.Name;
                 finanse.Value = model.Price;
                 finanse.CreateDateTime = DateTime.Now;
+                finanse.TimeEvent = model.TimeEvent;
                 _unitOfWork.SaveChanges();
                 return RedirectToAction("ShowForCategory", new { categoryId = model.CategoryId });
             }

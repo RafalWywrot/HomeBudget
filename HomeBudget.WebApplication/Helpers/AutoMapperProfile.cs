@@ -26,6 +26,10 @@ namespace HomeBudget.WebApplication.Helpers
                 .ForMember(
                     dest => dest.CategoryName,
                     opt => opt.MapFrom(src => src.Category.Name)
+                )
+                .ForMember(
+                    dest => dest.CreateDateTimeDatabase,
+                    opt => opt.MapFrom(src => src.CreateDateTime)
                 );
             CreateMap<RevenueViewModel, DAO.Finance>()
               .ForMember(

@@ -1,17 +1,15 @@
 ﻿@model HomeBudget.WebApplication.Models.RevenueViewModel
 
 @{
-    ViewBag.Title = "Add";
+    ViewBag.Title = "Dodanie przychodu";
 }
-
-<h2>Add</h2>
+<h2>Dodanie przychodu w kategorii : @Model.CategoryName</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(x => x.CategoryId)
     <div class="form-horizontal">
-        <h4>FinanceViewModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -30,21 +28,21 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(x => x.TimeEvent, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.TimeEvent, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TimeEvent, "", new { @class = "text-danger" })
             </div>
         </div>
-
+       
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "ShowForCategory", "Revenues", new { categoryId = Model.CategoryId }, null)
+<div class="col-md-2">
+    @Html.ActionLink("Back to List", "ShowForCategory", "Revenues", new { categoryId = Model.CategoryId }, new { @class = "btn btn-info" })
 </div>

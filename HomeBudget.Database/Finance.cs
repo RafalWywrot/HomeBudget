@@ -11,6 +11,7 @@ namespace HomeBudget.Database
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime CreateDateTime{ get; set; }
+        public DateTime TimeEvent { get; set; } 
         public double Value { get; set; }
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }

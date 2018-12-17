@@ -89,6 +89,10 @@
     <Compile Include="Migrations\201812161415138_Add finance table.Designer.cs">
       <DependentUpon>201812161415138_Add finance table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812172223395_add timeEvenet to table Finance.cs" />
+    <Compile Include="Migrations\201812172223395_add timeEvenet to table Finance.Designer.cs">
+      <DependentUpon>201812172223395_add timeEvenet to table Finance.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
@@ -105,6 +109,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812161415138_Add finance table.resx">
       <DependentUpon>201812161415138_Add finance table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812172223395_add timeEvenet to table Finance.resx">
+      <DependentUpon>201812172223395_add timeEvenet to table Finance.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -1,20 +1,24 @@
 ﻿@model IEnumerable<HomeBudget.WebApplication.Models.RevenueViewModel>
 <div class="margin-top20">
-    <a class="btn btn-success" href="@Url.Action("Add","Revenues", new { categoryId = ViewBag.CategoryId })">Dodaj przychód</a>
-    <table class="table">
+    <a class="btn btn-success btn-lg" href="@Url.Action("Add","Revenues", new { categoryId = ViewBag.CategoryId })">Dodaj</a>
+    <table class="table margin-top20">
         <tr>
-            <th>
+            <th class="col-md-2">
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+            <th class="col-md-2">
                 @Html.DisplayNameFor(model => model.Price)
             </th>
-            <th>
+            <th class="col-md-2">
                 @Html.DisplayNameFor(model => model.CategoryName)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryId)
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.TimeEvent)
             </th>
+            <th class="col-md-2">
+                @Html.DisplayNameFor(model => model.CreateDateTimeDatabase)
+            </th>
+            <th></th>
             <th></th>
         </tr>
 
@@ -31,18 +35,25 @@
                     @Html.DisplayFor(modelItem => item.CategoryName)
                 </td>
                 <td class="col-md-2">
-                    @Html.DisplayFor(modelItem => item.CategoryId)
+                    @Html.DisplayFor(modelItem => item.TimeEvent)
                 </td>
-                <td>
-                    @using (Html.BeginForm("Edit", "Revenues", new { id = item.Id }, FormMethod.Get, new { @class = "col-md-2" }))
+                <td class="col-md-2">
+                    @Html.DisplayFor(modelItem => item.CreateDateTimeDatabase)
+                </td>
+                <td class="col-md-1">
+                    @using (Html.BeginForm("Edit", "Revenues", new { id = item.Id }, FormMethod.Get, new { @class = "" }))
                     {
-                        <input type="submit" value="Edit" class="btn btn-default" />
-                    }
-                    @using (Html.BeginForm("Delete", "Revenues", new { id = item.Id }, FormMethod.Post, new { @class = "col-md-2" }))
-                    {
-                        <input type="submit" value="delete" class="btn btn-danger" />
+                        <input type="submit" value="Edytuj" class="btn btn-default" />
                     }
                 </td>
+                <td class="col-md-1">
+                    @using (Html.BeginForm("Delete", "Revenues", new { id = item.Id }, FormMethod.Post, new { @class = "" }))
+                    {
+                        <input type="submit" value="Usuń" class="btn btn-danger" />
+                    }
+                 </td>
+                    
+                   
             </tr>
         }
     </table>

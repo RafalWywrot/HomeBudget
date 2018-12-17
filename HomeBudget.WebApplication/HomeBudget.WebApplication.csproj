@@ -206,6 +206,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AutoMapperProfile.cs" />
+    <Compile Include="Helpers\ValidatinAttributes\DateBirthRangeAttribute.cs" />
+    <Compile Include="Helpers\ValidatinAttributes\MaxValueAttribute.cs" />
+    <Compile Include="Helpers\ValidatinAttributes\MinValueAttribute.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\FinanceViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
