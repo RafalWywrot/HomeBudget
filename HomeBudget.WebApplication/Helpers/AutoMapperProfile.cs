@@ -30,7 +30,8 @@ namespace HomeBudget.WebApplication.Helpers
                 .ForMember(
                     dest => dest.CreateDateTimeDatabase,
                     opt => opt.MapFrom(src => src.CreateDateTime)
-                );
+                )
+                .AfterMap((src, dest) => dest.Price = Math.Round(dest.Price, 2));
             CreateMap<RevenueViewModel, DAO.Finance>()
               .ForMember(
                   dest => dest.Value,

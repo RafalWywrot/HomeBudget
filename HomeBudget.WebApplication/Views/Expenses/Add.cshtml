@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Dodanie przychodu";
 }
-<h2>Dodanie przychodu w kategorii : @Model.CategoryName</h2>
+<h2>Dodanie wydatku w kategorii : @Model.CategoryName</h2>
 
 @using (Html.BeginForm())
 {
@@ -34,7 +34,7 @@
                 @Html.ValidationMessageFor(model => model.TimeEvent, "", new { @class = "text-danger" })
             </div>
         </div>
-       
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Utwórz" class="btn btn-success" />
@@ -42,7 +42,6 @@
         </div>
     </div>
 }
-
 <div class="col-md-2">
     @Html.ActionLink("Powrót", "ShowForCategory", "Revenues", new { categoryId = Model.CategoryId }, new { @class = "btn btn-info" })
 </div>

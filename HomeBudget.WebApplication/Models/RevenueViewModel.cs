@@ -12,7 +12,8 @@ namespace HomeBudget.WebApplication.Models
         [Required(ErrorMessage = "Pole {0} jest wymagane")]
         [MinValue(0.01, ErrorMessage = "Wartość w polu {0} musi być większa lub równa 0.01")]
         [MaxValue(double.MaxValue, ErrorMessage = "Wartość w polu {0} jest za duża")]
+        [RegularExpression(@"[0-9]+(\.[0-9][0-9]?)?", ErrorMessage = "Maksymalnie dwa miejsca po przecinku")]
         [Display(Name = "Cena")]
-        public double Price { get; set; }
+        public double Price { get; set; } 
     }
 }

@@ -1,17 +1,20 @@
 ﻿@model HomeBudget.WebApplication.Models.RevenueViewModel
 
 @{
-    ViewBag.Title = "Dodanie przychodu";
+    ViewBag.Title = "Edycja przychodu";
 }
-<h2>Dodanie przychodu w kategorii : @Model.CategoryName</h2>
+<h2>Edycja wydatku w kategorii :  @Model.CategoryName</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(x => x.CategoryId)
+
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.CategoryId)
+
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -34,15 +37,14 @@
                 @Html.ValidationMessageFor(model => model.TimeEvent, "", new { @class = "text-danger" })
             </div>
         </div>
-       
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Utwórz" class="btn btn-success" />
+                <input type="submit" value="Zapisz" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
-
 <div class="col-md-2">
     @Html.ActionLink("Powrót", "ShowForCategory", "Revenues", new { categoryId = Model.CategoryId }, new { @class = "btn btn-info" })
 </div>

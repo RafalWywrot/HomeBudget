@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<HomeBudget.WebApplication.Models.RevenueViewModel>
 <div class="margin-top20">
-    <a class="btn btn-success btn-lg" href="@Url.Action("Add","Revenues", new { categoryId = ViewBag.CategoryId })">Dodaj</a>
+    <a class="btn btn-success btn-lg" href="@Url.Action("Add","Expenses", new { categoryId = ViewBag.CategoryId })">Dodaj</a>
     <table class="table margin-top20">
         <tr>
             <th class="col-md-2">
@@ -22,7 +22,7 @@
             <th></th>
         </tr>
 
-        @foreach (var item in Model)
+            @foreach (var item in Model)
         {
             <tr>
                 <td class="col-md-2">
@@ -42,13 +42,13 @@
                     @Html.DisplayFor(modelItem => item.CreateDateTimeDatabase)
                 </td>
                 <td class="col-md-1">
-                    @using (Html.BeginForm("Edit", "Revenues", new { id = item.Id }, FormMethod.Get, new { @class = "" }))
+                    @using (Html.BeginForm("Edit", "Expenses", new { id = item.Id }, FormMethod.Get, new { @class = "" }))
                     {
                         <input type="submit" value="Edytuj" class="btn btn-default" />
                     }
                 </td>
                 <td class="col-md-1">
-                    @using (Html.BeginForm("Delete", "Revenues", new { id = item.Id }, FormMethod.Post, new { @class = "" }))
+                    @using (Html.BeginForm("Delete", "Expenses", new { id = item.Id }, FormMethod.Post, new { @class = "" }))
                     {
                         <input type="submit" value="Usuń" class="btn btn-danger" />
                     }
@@ -59,8 +59,8 @@
     @if (Model.Count() != 0)
     {
         <div class="form-group margin-top20 financeSum">
-            <label class="control-label">Łączny przychód: </label>
-            <label class="text-success">@Model.Select(x => x.Price).Sum() zł</label>
+            <label class="control-label">Łączny wydatek: </label>
+            <label class="text-danger">@Model.Select(x => x.Price).Sum() zł</label>
         </div>
     }
 </div>

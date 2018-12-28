@@ -1,7 +1,7 @@
 ﻿@model List<HomeBudget.Database.Category>
 @{
     ViewBag.Title = "Index";
-    string[] categoryGlyphicons = { "glyphicon-asterisk", "glyphicon-th-list", "glyphicon-plane", "glyphicon-circle-arrow-up" };
+    string[] categoryGlyphicons = { "glyphicon-euro", "glyphicon-lock", "glyphicon-book", "glyphicon-th" };
 }
 <div class="col-md-12">
     <h2>Kategorie przychodów</h2>
@@ -10,10 +10,11 @@
     <div class="col-md-12 categories">
         @for (var i = 0;  i < Model.Count(); i++)
         {
-            <div class="col-md-3 categoryBox ">
+            <div class="col-md-3 categoryBox margin-top20">
                 <div class="categoryView">
                     <a href="@Url.Action("ShowForCategory","Revenues", new { categoryId = Model[i].Id })">
-                        <span class="glyphicon @categoryGlyphicons[i]"></span>@Model[i].Name
+                        <span class="glyphicon @categoryGlyphicons[i]"></span>
+                        <span class="margin-top20">@Model[i].Name</span>
                     </a>
                 </div>
             </div>
