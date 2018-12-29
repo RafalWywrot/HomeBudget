@@ -1,6 +1,5 @@
 ﻿@{
     ViewBag.Title = "Index";
-    string[] categoryGlyphicons = { "glyphicon-asterisk", "glyphicon-cutlery", "glyphicon-plus" };
 }
 <div class="col-md-12">
     <h2>Kategorie raportów</h2>
@@ -9,8 +8,8 @@
     <div class="col-md-12 categories">
         <div class="col-md-3 categoryBox margin-top20">
             <div class="categoryView">
-                <a href="@Url.Action("","Reports", new { categoryId = 1 })">
-                    <span class="glyphicon @categoryGlyphicons[0]"></span>
+                <a href="@Url.Action("General","Reports")">
+                    <span class="glyphicon glyphicon-th-large"></span>
                     <span class="margin-top20">Ogólny</span>
                 </a>
             </div>
@@ -18,7 +17,7 @@
         <div class="col-md-3 categoryBox margin-top20">
             <div class="categoryView">
                 <a href="@Url.Action("","Reports", new { categoryId = 1 })">
-                    <span class="glyphicon @categoryGlyphicons[0]"></span>
+                    <span class="glyphicon glyphicon-th"></span>
                     <span class="margin-top20">Szczegółowy</span>
                 </a>
             </div>
@@ -26,7 +25,7 @@
         <div class="col-md-3 categoryBox margin-top20">
             <div class="categoryView">
                 <a href="@Url.Action("","Reports", new { categoryId = 1 })">
-                    <span class="glyphicon @categoryGlyphicons[0]"></span>
+                    <span class="glyphicon glyphicon-th-list"></span>
                     <span class="margin-top20">W danym okresie</span>
                 </a>
             </div>

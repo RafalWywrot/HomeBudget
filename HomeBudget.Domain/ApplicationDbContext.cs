@@ -26,6 +26,7 @@ namespace HomeBudget.Domain
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+            //this.Configuration.LazyLoadingEnabled = true;
         }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Finance> Finances { get; set; }
