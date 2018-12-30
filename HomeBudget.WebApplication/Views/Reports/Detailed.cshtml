@@ -1,0 +1,112 @@
+﻿@model HomeBudget.WebApplication.Models.DetailedReportViewModel
+@{
+    ViewBag.Title = "General";
+    bool isRevenue = Model.AnyCashOperation ? (Model.Revenues.Select(x => x.Price).Sum() - Model.Expenses.Select(x => x.Price).Sum()) > 0 : false;
+}
+<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
+<div class="margin-top10 reports">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="col-md-6">Szczegółowy miesięczny raport</h3>
+        </div>
+    </div>
+    <div class="row">
+        @Html.HiddenFor(x => x.DateReport, new { @class = "dateReportTemplate" })
+        @using (Html.BeginForm("Detailed", "Reports", FormMethod.Post, new { @class = "form-inline col-md-6", @role = "form" }))
+        {
+            <div class="form-group col-md-9">
+                <label class="col-md-5 control-label pad-left0" for="DateReport" style="margin-top: 7px;">Miesiąc raportu</label>
+                @*@Html.LabelFor(x => x.DateReport, new { @class = "col-md-2 control-label" })*@
+                <div class="col-md-7">
+                    @Html.EditorFor(model => model.DateReport, new { htmlAttributes = new { @class = "form-control date-picker", @placeholder = "Wybierz date" } })
+                    @Html.ValidationMessageFor(model => model.DateReport, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <button type="submit" class="col-md-3 btn btn-default">Wybierz</button>
+        }
+    </div>
+    @if (Model.AnyCashOperation)
+    {
+        <div class="row margin-top20">
+            <div class="col-md-6 reportsGeneralList reportsDetailesList">
+                <div class="panel panel-default panel-success">
+                    <div class="panel-heading ">Przychody</div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            @foreach (var revenueCategory in Model.Categories.Where(x => !x.IsExpense))
+                            {
+                                <li class="list-group-item">
+                                    <span>@revenueCategory.Name</span>
+                                    <span class="text-right">@Model.Revenues.Where(x => x.CategoryId == revenueCategory.Id).Select(x => x.Price).Sum() zł</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <span>Podsumowanie</span>
+                        <span class="text-success text-right">@Model.Revenues.Select(x => x.Price).Sum() zł</span>
+                    </div>
+                </div>
+                <div class="panel panel-default panel-danger">
+                    <div class="panel-heading">Wydatki</div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            @foreach (var expenseCategory in Model.Categories.Where(x => x.IsExpense))
+                            {
+                                <li class="list-group-item">
+                                    <span>@expenseCategory.Name</span>
+                                    <span class="text-right">@Model.Expenses.Where(x => x.CategoryId == expenseCategory.Id).Select(x => x.Price).Sum() zł</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="panel-footer">
+                        <span>Podsumowanie</span>
+                        <span class="text-danger text-right">@Model.Expenses.Select(x => x.Price).Sum() zł</span>
+                    </div>
+                </div>
+                <div class="panel panel-default @(isRevenue ? "panel-success" : "panel-danger")  reportBalance">
+                    <div class="panel-heading">
+                        <span><strong>Bilans</strong></span>
+                        <span class="@(isRevenue ? "text-success" : "text-danger") text-right"><strong>@(@Model.Revenues.Select(x => x.Price).Sum() - @Model.Expenses.Select(x => x.Price).Sum()) zł</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning margin-top20" role="alert">
+            W tym miesiącu nie odnotowano żadnych operacji finansowych
+        </div>
+    }
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $.datepicker.setDefaults($.datepicker.regional['pl']);
+        $(document).ready(function () {
+            $('.date-picker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                dateFormat: 'MM yy',
+                onClose: function (dateText, inst) {
+                    var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                    $(this).datepicker('setDate', new Date(year, month, 1));
+                }
+            });
+            var date = document.getElementsByClassName('dateReportTemplate')[0].value;
+            var day = date.slice(0, 2);
+            var month = date.slice(3, 5) - 1;
+            var year = date.slice(6, 10);
+            $('.date-picker').datepicker("setDate", new Date(year, month, day));
+        });
+    </script>
+}

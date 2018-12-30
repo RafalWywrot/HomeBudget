@@ -210,6 +210,7 @@
     <Compile Include="Helpers\ValidatinAttributes\MaxValueAttribute.cs" />
     <Compile Include="Helpers\ValidatinAttributes\MinValueAttribute.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DetailedReportViewModel.cs" />
     <Compile Include="Models\FinanceViewModel.cs" />
     <Compile Include="Models\GeneralReportViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -292,6 +293,7 @@
     <Content Include="Views\Expenses\Edit.cshtml" />
     <Content Include="Views\Expenses\ShowForCategory.cshtml" />
     <Content Include="Views\Reports\General.cshtml" />
+    <Content Include="Views\Reports\Detailed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

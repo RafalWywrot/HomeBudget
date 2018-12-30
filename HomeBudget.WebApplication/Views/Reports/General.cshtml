@@ -7,7 +7,7 @@
         display: none;
     }
 </style>
-<div class="margin-top20 reports">
+<div class="margin-top10 reports">
     <div class="row">
         <div class="col-md-12">
             <h3 class="col-md-6">Ogólny miesięczny raport</h3>
@@ -18,8 +18,7 @@
         @using (Html.BeginForm("General", "Reports", FormMethod.Post, new { @class = "form-inline col-md-6", @role = "form" }))
         {
             <div class="form-group col-md-9">
-                @*<label class="col-md-5 control-label pad-left0" for="DateReport" style="margin-top: 7px;">Miesiąc raportu</label>*@
-                @Html.LabelFor(x => x.DateReport, new { @class = "col-md-2 control-label" })
+                <label class="col-md-5 control-label pad-left0" for="DateReport" style="margin-top: 7px;">Miesiąc raportu</label>
                 <div class="col-md-7">
                     @Html.EditorFor(model => model.DateReport, new { htmlAttributes = new { @class = "form-control date-picker", @placeholder = "Wybierz date" } })
                     @Html.ValidationMessageFor(model => model.DateReport, "", new { @class = "text-danger" })
@@ -50,6 +49,12 @@
                 </div>
             </div>
         </div>
+    }
+    else
+    {
+        <div class="alert alert-warning margin-top20" role="alert">
+            W tym miesiącu nie odnotowano żadnych operacji finansowych
+        </div>     
     }
 </div>
 

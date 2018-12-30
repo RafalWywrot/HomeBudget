@@ -85,18 +85,36 @@ textarea {
     padding-top: 10px;
     font-size: 1.3em;
 }
-.reports li span {
+.reports li span,
+.reports .panel-body span,
+.reports .panel-heading span,
+.reports .panel-footer span {
     display: inline-block;
 }
 .reportsGeneralList {
     padding-left: 15px;
 }
-.reportsGeneralList li span:first-child {
+.reportsGeneralList span:first-child {
     width: 40%;
 }
-.reportsGeneralList li span:nth-child(2) {
+.reportsGeneralList span:nth-child(2) {
     width: 58%;
 }
 .pad-left0 {
     padding-left: 0px;
+}
+.reportsDetailesList .panel-body {
+    padding: 0;
+}
+.reportsDetailesList .panel-body .list-group {
+    margin-bottom: 0;
+}
+.reportsDetailesList .panel-body .list-group-item {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    padding-left: 25px;
+}
+.reportsDetailesList .reportBalance .panel-footer {
+    border: none;
 }
