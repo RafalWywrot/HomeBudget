@@ -85,3 +85,18 @@ textarea {
     padding-top: 10px;
     font-size: 1.3em;
 }
+.reports li span {
+    display: inline-block;
+}
+.reportsGeneralList {
+    padding-left: 15px;
+}
+.reportsGeneralList li span:first-child {
+    width: 40%;
+}
+.reportsGeneralList li span:nth-child(2) {
+    width: 58%;
+}
+.pad-left0 {
+    padding-left: 0px;
+}

@@ -18,7 +18,7 @@ namespace HomeBudget.WebApplication.Controllers
         {
             var model = new GeneralReportViewModel()
             {
-                DateReport = DateTime.Today
+                DateReport = DateTime.Now
             };
             return View(model);
         }
@@ -32,7 +32,7 @@ namespace HomeBudget.WebApplication.Controllers
             DateTime date = (DateTime)model.DateReport;
             var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
             var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-            var finanses = _unitOfWork.FinanceRepository.GetOverview(x => x.TimeEvent > firstDayOfMonth && x.TimeEvent < lastDayOfMonth).ToList();
+            var finanses = _unitOfWork.FinanceRepository.GetOverview(x => x.TimeEvent >= firstDayOfMonth && x.TimeEvent <= lastDayOfMonth).ToList();
             model.AnyCashOperation = false;
             if (finanses.Any())
             {
@@ -40,6 +40,8 @@ namespace HomeBudget.WebApplication.Controllers
                 model.Expenses = finanses.Where(x => x.Category.IsExpense).Select(x => x.Value).Sum();
                 model.AnyCashOperation = true;
             }
+            ModelState.Clear();
+            ModelState.Remove("DateReport");
             return View(model);
         }
     }

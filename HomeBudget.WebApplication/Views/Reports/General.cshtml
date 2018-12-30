@@ -2,21 +2,78 @@
 @{
     ViewBag.Title = "General";
 }
-<h2>Widok ogólny</h2>
-@using (Html.BeginForm("General", "Reports", new { }, FormMethod.Post, new { @id = "", @class = "form-inline", @role = "form" }))
-{
-    <div class="form-group">
-        @Html.LabelFor(x => x.DateReport, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DateReport, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DateReport, "", new { @class = "text-danger" })
+<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
+<div class="margin-top20 reports">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="col-md-6">Ogólny miesięczny raport</h3>
         </div>
     </div>
-    <button type="submit" class="btn btn-default">Wybier</button>
-}
-@if (Model.AnyCashOperation)
+    <div class="row">
+        @Html.HiddenFor(x => x.DateReport, new { @class = "dateReportTemplate" })
+        @using (Html.BeginForm("General", "Reports", FormMethod.Post, new { @class = "form-inline col-md-6", @role = "form" }))
+        {
+            <div class="form-group col-md-9">
+                @*<label class="col-md-5 control-label pad-left0" for="DateReport" style="margin-top: 7px;">Miesiąc raportu</label>*@
+                @Html.LabelFor(x => x.DateReport, new { @class = "col-md-2 control-label" })
+                <div class="col-md-7">
+                    @Html.EditorFor(model => model.DateReport, new { htmlAttributes = new { @class = "form-control date-picker", @placeholder = "Wybierz date" } })
+                    @Html.ValidationMessageFor(model => model.DateReport, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <button type="submit" class="col-md-3 btn btn-default">Wybierz</button>
+        }
+    </div>
+    @if (Model.AnyCashOperation)
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <div class="margin-top20">
+                    <ul class="list-group reportsGeneralList">
+                        <li class="list-group-item">
+                            <span class="">Łaczny przychod: </span>
+                            <span class="text-success text-right">@Model.Revenues zł</span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="">Łaczny wydatek: </span>
+                            <span class="text-danger text-right">@Model.Expenses zł</span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class=""><strong>BILANS:</strong> </span>
+                            <span class="text-success text-right"><strong>@(@Model.Revenues - @Model.Expenses) zł</strong></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts
 {
-    <p>łaczny przychod: @Model.Revenues</p>
-    <p>łączne wydatki: @Model.Expenses</p>
-    <p>Bilans: @(@Model.Revenues - @Model.Expenses)</p>
+    <script type="text/javascript">
+        $.datepicker.setDefaults($.datepicker.regional['pl']);
+        $(document).ready(function () {
+            $('.date-picker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                dateFormat: 'MM yy',
+                onClose: function (dateText, inst) {
+                    var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                    $(this).datepicker('setDate', new Date(year, month, 1));
+                }
+            });
+            var date = document.getElementsByClassName('dateReportTemplate')[0].value;
+            var day = date.slice(0, 2);
+            var month = date.slice(3, 5) - 1;
+            var year = date.slice(6, 10);
+            $('.date-picker').datepicker("setDate", new Date(year, month, day));
+        });
+    </script>
 }
