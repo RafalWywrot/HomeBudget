@@ -1,7 +1,6 @@
 ﻿@model HomeBudget.WebApplication.Models.DetailedReportViewModel
 @{
     ViewBag.Title = "General";
-    bool isRevenue = Model.AnyCashOperation ? (Model.Revenues.Select(x => x.Price).Sum() - Model.Expenses.Select(x => x.Price).Sum()) > 0 : false;
 }
 <style>
     .ui-datepicker-calendar {
@@ -20,7 +19,6 @@
         {
             <div class="form-group col-md-9">
                 <label class="col-md-5 control-label pad-left0" for="DateReport" style="margin-top: 7px;">Miesiąc raportu</label>
-                @*@Html.LabelFor(x => x.DateReport, new { @class = "col-md-2 control-label" })*@
                 <div class="col-md-7">
                     @Html.EditorFor(model => model.DateReport, new { htmlAttributes = new { @class = "form-control date-picker", @placeholder = "Wybierz date" } })
                     @Html.ValidationMessageFor(model => model.DateReport, "", new { @class = "text-danger" })
@@ -31,52 +29,7 @@
     </div>
     @if (Model.AnyCashOperation)
     {
-        <div class="row margin-top20">
-            <div class="col-md-6 reportsGeneralList reportsDetailesList">
-                <div class="panel panel-default panel-success">
-                    <div class="panel-heading ">Przychody</div>
-                    <div class="panel-body">
-                        <ul class="list-group">
-                            @foreach (var revenueCategory in Model.Categories.Where(x => !x.IsExpense))
-                            {
-                                <li class="list-group-item">
-                                    <span>@revenueCategory.Name</span>
-                                    <span class="text-right">@Model.Revenues.Where(x => x.CategoryId == revenueCategory.Id).Select(x => x.Price).Sum() zł</span>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                    <div class="panel-footer">
-                        <span>Podsumowanie</span>
-                        <span class="text-success text-right">@Model.Revenues.Select(x => x.Price).Sum() zł</span>
-                    </div>
-                </div>
-                <div class="panel panel-default panel-danger">
-                    <div class="panel-heading">Wydatki</div>
-                    <div class="panel-body">
-                        <ul class="list-group">
-                            @foreach (var expenseCategory in Model.Categories.Where(x => x.IsExpense))
-                            {
-                                <li class="list-group-item">
-                                    <span>@expenseCategory.Name</span>
-                                    <span class="text-right">@Model.Expenses.Where(x => x.CategoryId == expenseCategory.Id).Select(x => x.Price).Sum() zł</span>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                    <div class="panel-footer">
-                        <span>Podsumowanie</span>
-                        <span class="text-danger text-right">@Model.Expenses.Select(x => x.Price).Sum() zł</span>
-                    </div>
-                </div>
-                <div class="panel panel-default @(isRevenue ? "panel-success" : "panel-danger")  reportBalance">
-                    <div class="panel-heading">
-                        <span><strong>Bilans</strong></span>
-                        <span class="@(isRevenue ? "text-success" : "text-danger") text-right"><strong>@(@Model.Revenues.Select(x => x.Price).Sum() - @Model.Expenses.Select(x => x.Price).Sum()) zł</strong></span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @Html.Partial("_DetailedReportResult")
     }
     else
     {
@@ -84,7 +37,7 @@
             W tym miesiącu nie odnotowano żadnych operacji finansowych
         </div>
     }
-</div>
+    </div>
 
 @section scripts
 {

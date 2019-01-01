@@ -16,7 +16,14 @@ namespace HomeBudget.WebApplication.Helpers.ValidatinAttributes
 
         public override bool IsValid(object value)
         {
-            return (double)value >= _minValue;
+            try
+            {
+                return (double)value >= _minValue;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿@model HomeBudget.WebApplication.Models.GeneralReportViewModel
 @{
     ViewBag.Title = "General";
+    bool isRevenue = Model.AnyCashOperation ? (Model.Revenues - Model.Expenses) > 0 : false;
 }
 <style>
     .ui-datepicker-calendar {
@@ -43,7 +44,7 @@
                         </li>
                         <li class="list-group-item">
                             <span class=""><strong>BILANS:</strong> </span>
-                            <span class="text-success text-right"><strong>@(@Model.Revenues - @Model.Expenses) zł</strong></span>
+                            <span class="@(isRevenue ? "text-success" : "text-danger")  text-right"><strong>@(@Model.Revenues - @Model.Expenses) zł</strong></span>
                         </li>
                     </ul>
                 </div>

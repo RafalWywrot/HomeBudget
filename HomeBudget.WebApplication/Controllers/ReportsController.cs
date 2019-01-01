@@ -99,5 +99,45 @@ namespace HomeBudget.WebApplication.Controllers
             ModelState.Remove("DateReport");
             return model;
         }
+        public ActionResult TimeRange()
+        {
+            var date = DateTime.Now;
+            var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
+            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+            var model = GetModelForTimeRange(firstDayOfMonth, lastDayOfMonth);
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult TimeRange(TimeRangeReportViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var newmodel = GetModelForTimeRange(model.DateFrom, model.DateTo);
+            return View(newmodel);
+        }
+        private TimeRangeReportViewModel GetModelForTimeRange(DateTime dateFrom, DateTime dateTo)
+        {
+            
+            var finanses = _unitOfWork.FinanceRepository.GetOverview(x => x.TimeEvent >= dateFrom && x.TimeEvent <= dateTo).ToList();
+            var model = new TimeRangeReportViewModel()
+            {
+                DateFrom = dateFrom,
+                DateTo = dateTo,
+                AnyCashOperation = false,
+                Categories = _unitOfWork.CategoryRepository.GetOverview().ToList()
+            };
+            if (finanses.Any())
+            {
+                model.Revenues = Mapper.Map<List<RevenueViewModel>>(finanses.Where(x => !x.Category.IsExpense).ToList());
+                model.Expenses = Mapper.Map<List<RevenueViewModel>>(finanses.Where(x => x.Category.IsExpense).ToList());
+                model.AnyCashOperation = true;
+            }
+            ModelState.Clear();
+            ModelState.Remove("DateFrom");
+            ModelState.Remove("DateTo");
+            return model;
+        }
     }
 }

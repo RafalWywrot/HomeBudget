@@ -1,0 +1,54 @@
+﻿@model HomeBudget.WebApplication.Models.DetailedReportViewModel
+@{
+    bool isRevenue = Model.AnyCashOperation ? (Model.Revenues.Select(x => x.Price).Sum() - Model.Expenses.Select(x => x.Price).Sum()) > 0 : false;
+}
+<div class="row margin-top20">
+    <div class="col-md-6  reportsDetailesList">
+        <div class="reportsGeneralList">
+
+            <div class="panel panel-default panel-success">
+                <div class="panel-heading ">Przychody</div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        @foreach (var revenueCategory in Model.Categories.Where(x => !x.IsExpense))
+                    {
+                        <li class="list-group-item">
+                            <span>@revenueCategory.Name</span>
+                            <span class="text-right">@Model.Revenues.Where(x => x.CategoryId == revenueCategory.Id).Select(x => x.Price).Sum() zł</span>
+                        </li>
+                }
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <span>Podsumowanie</span>
+                    <span class="text-success text-right">@Model.Revenues.Select(x => x.Price).Sum() zł</span>
+                </div>
+            </div>
+            <div class="panel panel-default panel-danger">
+                <div class="panel-heading">Wydatki</div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        @foreach (var expenseCategory in Model.Categories.Where(x => x.IsExpense))
+                    {
+                        <li class="list-group-item">
+                            <span>@expenseCategory.Name</span>
+                            <span class="text-right">@Model.Expenses.Where(x => x.CategoryId == expenseCategory.Id).Select(x => x.Price).Sum() zł</span>
+                        </li>
+                }
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <span>Podsumowanie</span>
+                    <span class="text-danger text-right">@Model.Expenses.Select(x => x.Price).Sum() zł</span>
+                </div>
+            </div>
+            <div class="panel panel-default @(isRevenue ? "panel-success" : "panel-danger")  reportBalance">
+                <div class="panel-heading">
+                    <span><strong>Bilans</strong></span>
+                    <span class="@(isRevenue ? "text-success" : "text-danger") text-right"><strong>@(@Model.Revenues.Select(x => x.Price).Sum() - @Model.Expenses.Select(x => x.Price).Sum()) zł</strong></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

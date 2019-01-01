@@ -118,3 +118,7 @@ textarea {
 .reportsDetailesList .reportBalance .panel-footer {
     border: none;
 }
+.shoppingLoginView {
+    width: 200px;
+    height: 200px;  
+}

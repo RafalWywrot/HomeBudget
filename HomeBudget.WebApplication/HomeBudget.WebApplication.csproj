@@ -216,6 +216,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RevenueViewModel.cs" />
+    <Compile Include="Models\TimeRangeReportViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -294,6 +295,8 @@
     <Content Include="Views\Expenses\ShowForCategory.cshtml" />
     <Content Include="Views\Reports\General.cshtml" />
     <Content Include="Views\Reports\Detailed.cshtml" />
+    <Content Include="Views\Reports\TimeRange.cshtml" />
+    <Content Include="Views\Reports\_DetailedReportResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
