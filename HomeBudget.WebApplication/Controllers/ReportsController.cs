@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 namespace HomeBudget.WebApplication.Controllers
 {
+    [Authorize]
     public class ReportsController : BaseController
     {
         public ActionResult Index()

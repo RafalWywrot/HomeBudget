@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace HomeBudget.WebApplication.Controllers
 {
+    [Authorize]
     public class RevenuesController : BaseController
     {
         public ActionResult Index()
