@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using HomeBudget.WebApplication.Models;
 using HomeBudget.Domain;
+using HomeBudget.Database;
+
 namespace HomeBudget.WebApplication.Controllers
 {
     [Authorize]
@@ -151,7 +153,16 @@ namespace HomeBudget.WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    UserInfo = new UserInfo
+                    {
+                        FirstName = "b",
+                        LastName = "b"
+                    }
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
