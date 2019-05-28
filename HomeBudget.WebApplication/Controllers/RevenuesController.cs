@@ -19,7 +19,7 @@ namespace HomeBudget.WebApplication.Controllers
         }
         public ActionResult ShowForCategory(int categoryId)
         {
-            var reveneus = _unitOfWork.FinanceRepository.GetOverview(x => x.CategoryId == categoryId).ToList();
+            var reveneus = _unitOfWork.FinanceRepository.GetOverview(x => x.CategoryId == categoryId && x.UserInfoId == GetUserInfoId()).ToList();
             var model = Mapper.Map<List<RevenueViewModel>>(reveneus);
             ViewBag.CategoryId = categoryId;
             return View(model);
@@ -41,6 +41,7 @@ namespace HomeBudget.WebApplication.Controllers
             if (ModelState.IsValid)
             {
                 var modelDAO = Mapper.Map<Finance>(model);
+                modelDAO.UserInfoId = GetUserInfoId();
                 _unitOfWork.FinanceRepository.Add(modelDAO);
                 _unitOfWork.SaveChanges();
                 return RedirectToAction("ShowForCategory", new { categoryId = model.CategoryId });
