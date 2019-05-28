@@ -93,6 +93,10 @@
     <Compile Include="Migrations\201812172223395_add timeEvenet to table Finance.Designer.cs">
       <DependentUpon>201812172223395_add timeEvenet to table Finance.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905281635441_add-user-info-table-map-to-finances.cs" />
+    <Compile Include="Migrations\201905281635441_add-user-info-table-map-to-finances.Designer.cs">
+      <DependentUpon>201905281635441_add-user-info-table-map-to-finances.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
@@ -112,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812172223395_add timeEvenet to table Finance.resx">
       <DependentUpon>201812172223395_add timeEvenet to table Finance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905281635441_add-user-info-table-map-to-finances.resx">
+      <DependentUpon>201905281635441_add-user-info-table-map-to-finances.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
