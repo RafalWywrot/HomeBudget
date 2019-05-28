@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace HomeBudget.Database
 {
-    public class Class1
+    public class UserInfo
     {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }
