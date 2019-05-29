@@ -159,8 +159,8 @@ namespace HomeBudget.WebApplication.Controllers
                     Email = model.Email,
                     UserInfo = new UserInfo
                     {
-                        FirstName = "b",
-                        LastName = "b"
+                        FirstName = model.Name,
+                        LastName = model.LastName
                     }
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
