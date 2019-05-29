@@ -1,0 +1,10 @@
+﻿@model List<HomeBudget.Database.Category>
+<h4 class="my-4">Kategorie wydatków</h4>
+<div class="list-group">
+    @for (var i = 0; i < Model.Count(); i++)
+    {
+        <a class="list-group-item @(ViewBag.CategoryId == Model[i].Id ? "active" : "") " href="@Url.Action("ShowForCategory","Expenses", new { categoryId = Model[i].Id })">
+            <span class="margin-top20">@Model[i].Name</span>
+        </a>
+    }
+</div>
