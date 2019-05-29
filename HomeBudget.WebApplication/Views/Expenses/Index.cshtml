@@ -4,21 +4,9 @@
     ViewBag.Title = "Index";
     string[] categoryGlyphicons = { "glyphicon-user ", "glyphicon-shopping-cart", "glyphicon-heart", "glyphicon-plus", "glyphicon-plane", "glyphicon-phone", "glyphicon-briefcase", "glyphicon-th" };
 }
-<div class="col-md-12">
-    <h2>Kategorie wydatków</h2>
-</div>
 <div class="row">
-    <div class="col-md-12 categories">
-        @for (var i = 0; i < Model.Count(); i++)
-        {
-            <div class="col-md-3 categoryBox margin-top20">
-                <div class="categoryView">
-                    <a href="@Url.Action("ShowForCategory","Expenses", new { categoryId = Model[i].Id })">
-                        <span class="glyphicon @categoryGlyphicons[i]"></span>
-                        <span class="margin-top20">@Model[i].Name</span>
-                    </a>
-                </div>
-            </div>
-        }
+    <div class="col-md-3">
+        @Html.Partial("_CategoryList", Model)
     </div>
 </div>
+
