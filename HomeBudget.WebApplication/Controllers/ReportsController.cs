@@ -48,7 +48,7 @@ namespace HomeBudget.WebApplication.Controllers
             DateTime date = (DateTime)dateTime;
             var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
             var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-            var finanses = _unitOfWork.FinanceRepository.GetOverview(x => x.TimeEvent >= firstDayOfMonth && x.TimeEvent <= lastDayOfMonth).ToList();
+            var finanses = _unitOfWork.FinanceRepository.GetOverview(x => x.TimeEvent >= firstDayOfMonth && x.TimeEvent <= lastDayOfMonth && x.UserInfoId == GetUserInfoId()).ToList();
             var model = new GeneralReportViewModel()
             {
                 DateReport = dateTime,
@@ -83,7 +83,7 @@ namespace HomeBudget.WebApplication.Controllers
         {
             var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
             var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-            var finanses = _unitOfWork.FinanceRepository.GetOverview(x => x.TimeEvent >= firstDayOfMonth && x.TimeEvent <= lastDayOfMonth).ToList();
+            var finanses = _unitOfWork.FinanceRepository.GetOverview(x => x.TimeEvent >= firstDayOfMonth && x.TimeEvent <= lastDayOfMonth && x.UserInfoId == GetUserInfoId()).ToList();
             var model = new DetailedReportViewModel()
             {
                 DateReport = date,
@@ -121,7 +121,7 @@ namespace HomeBudget.WebApplication.Controllers
         private TimeRangeReportViewModel GetModelForTimeRange(DateTime dateFrom, DateTime dateTo)
         {
             
-            var finanses = _unitOfWork.FinanceRepository.GetOverview(x => x.TimeEvent >= dateFrom && x.TimeEvent <= dateTo).ToList();
+            var finanses = _unitOfWork.FinanceRepository.GetOverview(x => x.TimeEvent >= dateFrom && x.TimeEvent <= dateTo && x.UserInfoId == GetUserInfoId()).ToList();
             var model = new TimeRangeReportViewModel()
             {
                 DateFrom = dateFrom,
