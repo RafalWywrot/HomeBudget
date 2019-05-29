@@ -1,66 +1,63 @@
-﻿@model IEnumerable<HomeBudget.WebApplication.Models.RevenueViewModel>
-<div class="margin-top20">
-    <a class="btn btn-success btn-lg" href="@Url.Action("Add","Revenues", new { categoryId = ViewBag.CategoryId })">Dodaj</a>
-    <table class="table margin-top20">
-        <tr>
-            <th class="col-md-2">
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th class="col-md-2">
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th class="col-md-2">
-                @Html.DisplayNameFor(model => model.CategoryName)
-            </th>
-            <th class="col-md-2">
-                @Html.DisplayNameFor(model => model.TimeEvent)
-            </th>
-            <th class="col-md-2">
-                @Html.DisplayNameFor(model => model.CreateDateTimeDatabase)
-            </th>
-            <th></th>
-            <th></th>
-        </tr>
+﻿@model HomeBudget.WebApplication.Models.RevenueWithCategoryViewModel
+<div class="row">
+    <div class="col-md-3">
+        @Html.Partial("_CategoryList", Model.Categories)
+    </div>
+    <div class="col-md-9">
+        <h5 class="my-3">
+            <a class="btn btn-success btn-lg" href="@Url.Action("Add","Revenues", new { categoryId = ViewBag.CategoryId })">Dodaj</a>
+        </h5>
+        <table class="table margin-top20">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Revenues.FirstOrDefault().Name)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Revenues.FirstOrDefault().Price)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Revenues.FirstOrDefault().CategoryName)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Revenues.FirstOrDefault().TimeEvent)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Revenues.FirstOrDefault().CreateDateTimeDatabase)</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                    @for (int i = 0; i < Model.Revenues.Count; i++)
+                    {
+                    <tr>
+                        <th scope="row">@(i+1)</th>
+                        <td>@Model.Revenues[i].Name</td>
+                        <td>
+                            @Model.Revenues[i].Price
+                            <span> zł</span>
+                        </td>
+                        <td>@Model.Revenues[i].CategoryName</td>
+                        <td>@Model.Revenues[i].TimeEvent</td>
+                        <td>@Model.Revenues[i].CreateDateTimeDatabase</td>
+                        <td>
+                            @using (Html.BeginForm("Edit", "Revenues", new { id = @Model.Revenues[i].Id }, FormMethod.Get, new { @class = "" }))
+                            {
+                                <input type="submit" value="Edytuj" class="btn btn-default" />
+                            }
+                        </td>
+                        <td>
+                            @using (Html.BeginForm("Delete", "Revenues", new { id = @Model.Revenues[i].Id }, FormMethod.Post, new { @class = "" }))
+                            {
+                                <input type="submit" value="Usuń" class="btn btn-danger" />
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
 
-        @foreach (var item in Model)
+        </table>
+        @if (Model.Revenues.Count() != 0)
         {
-            <tr>
-                <td class="col-md-2">
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td class="col-md-2">
-                    @Html.DisplayFor(modelItem => item.Price)
-                    <span> zł</span>
-                </td>
-                <td class="col-md-2">
-                    @Html.DisplayFor(modelItem => item.CategoryName)
-                </td>
-                <td class="col-md-2">
-                    @Html.DisplayFor(modelItem => item.TimeEvent)
-                </td>
-                <td class="col-md-2">
-                    @Html.DisplayFor(modelItem => item.CreateDateTimeDatabase)
-                </td>
-                <td class="col-md-1">
-                    @using (Html.BeginForm("Edit", "Revenues", new { id = item.Id }, FormMethod.Get, new { @class = "" }))
-                    {
-                        <input type="submit" value="Edytuj" class="btn btn-default" />
-                    }
-                </td>
-                <td class="col-md-1">
-                    @using (Html.BeginForm("Delete", "Revenues", new { id = item.Id }, FormMethod.Post, new { @class = "" }))
-                    {
-                        <input type="submit" value="Usuń" class="btn btn-danger" />
-                    }
-                </td>
-            </tr>
+            <div class="col-md-12">
+                <div class="form-group financeSum">
+                    <label class="control-label">Łączny przychód: </label>
+                    <label class="text-success">@Model.Revenues.Select(x => x.Price).Sum() zł</label>
+                </div>
+            </div>
         }
-    </table>
-    @if (Model.Count() != 0)
-    {
-        <div class="form-group margin-top20 financeSum">
-            <label class="control-label">Łączny przychód: </label>
-            <label class="text-success">@Model.Select(x => x.Price).Sum() zł</label>
-        </div>
-    }
+    </div>
 </div>

@@ -6,31 +6,6 @@
 
 <div class="row">
     <div class="col-md-3">
-        <h1 class="my-4">Kategorie przychodow</h1>
-        <div class="list-group">
-            @for (var i = 0; i < Model.Count(); i++)
-            {
-                <a class="list-group-item" href="@Url.Action("ShowForCategory","Revenues", new { categoryId = Model[i].Id })">
-                    <span class="glyphicon @categoryGlyphicons[i]"></span>
-                    <span class="margin-top20">@Model[i].Name</span>
-                </a>
-            }
-        </div>
+        @Html.Partial("_CategoryList", Model)
     </div>
-    <div class="col-md-9">
-
-    </div>
-    @*<div class="col-md-12 categories">
-        @for (var i = 0; i < Model.Count(); i++)
-        {
-            <div class="col-md-3 categoryBox margin-top20">
-                <div class="categoryView">
-                    <a href="@Url.Action("ShowForCategory","Revenues", new { categoryId = Model[i].Id })">
-                        <span class="glyphicon @categoryGlyphicons[i]"></span>
-                        <span class="margin-top20">@Model[i].Name</span>
-                    </a>
-                </div>
-            </div>
-        }
-    </div>*@
 </div>

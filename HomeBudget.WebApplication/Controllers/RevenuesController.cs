@@ -20,7 +20,11 @@ namespace HomeBudget.WebApplication.Controllers
         public ActionResult ShowForCategory(int categoryId)
         {
             var reveneus = _unitOfWork.FinanceRepository.GetOverview(x => x.CategoryId == categoryId && x.UserInfoId == GetUserInfoId()).ToList();
-            var model = Mapper.Map<List<RevenueViewModel>>(reveneus);
+            var model = new RevenueWithCategoryViewModel
+            {
+                Revenues = Mapper.Map<List<RevenueViewModel>>(reveneus),
+                Categories = _unitOfWork.CategoryRepository.GetOverview(x => !x.IsExpense).ToList()
+            };
             ViewBag.CategoryId = categoryId;
             return View(model);
         }
