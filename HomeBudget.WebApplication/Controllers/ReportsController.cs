@@ -18,29 +18,18 @@ namespace HomeBudget.WebApplication.Controllers
         public ActionResult General()
         {
             var model = GetModelForGeneral(DateTime.Now);
+            ViewBag.ReportName = "General";
             return View(model);
         }
         [HttpPost]
         public ActionResult General(GeneralReportViewModel model)
         {
+            ViewBag.ReportName = "General";
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
             var newModel = GetModelForGeneral(model.DateReport);
-            //DateTime date = (DateTime)model.DateReport;
-            //var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
-            //var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-            //var finanses = _unitOfWork.FinanceRepository.GetOverview(x => x.TimeEvent >= firstDayOfMonth && x.TimeEvent <= lastDayOfMonth).ToList();
-            //model.AnyCashOperation = false;
-            //if (finanses.Any())
-            //{
-            //    model.Revenues = finanses.Where(x => !x.Category.IsExpense).Select(x => x.Value).Sum();
-            //    model.Expenses = finanses.Where(x => x.Category.IsExpense).Select(x => x.Value).Sum();
-            //    model.AnyCashOperation = true;
-            //}
-            
-            
             return View(newModel);
         }
         private GeneralReportViewModel GetModelForGeneral(DateTime dateTime)
@@ -48,7 +37,8 @@ namespace HomeBudget.WebApplication.Controllers
             DateTime date = (DateTime)dateTime;
             var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
             var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-            var finanses = _unitOfWork.FinanceRepository.GetOverview(x => x.TimeEvent >= firstDayOfMonth && x.TimeEvent <= lastDayOfMonth && x.UserInfoId == GetUserInfoId()).ToList();
+            var userId = GetUserInfoId();
+            var finanses = _unitOfWork.FinanceRepository.GetOverview(x => x.TimeEvent >= firstDayOfMonth && x.TimeEvent <= lastDayOfMonth && x.UserInfoId == userId).ToList();
             var model = new GeneralReportViewModel()
             {
                 DateReport = dateTime,
@@ -67,11 +57,13 @@ namespace HomeBudget.WebApplication.Controllers
         public ActionResult Detailed()
         {
             var model = GetModelForDetailed(DateTime.Now);
+            ViewBag.ReportName = "Detailed";
             return View(model);
         }
         [HttpPost]
         public ActionResult Detailed(DetailedReportViewModel model)
         {
+            ViewBag.ReportName = "Detailed";
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -83,7 +75,8 @@ namespace HomeBudget.WebApplication.Controllers
         {
             var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
             var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-            var finanses = _unitOfWork.FinanceRepository.GetOverview(x => x.TimeEvent >= firstDayOfMonth && x.TimeEvent <= lastDayOfMonth && x.UserInfoId == GetUserInfoId()).ToList();
+            var userId = GetUserInfoId();
+            var finanses = _unitOfWork.FinanceRepository.GetOverview(x => x.TimeEvent >= firstDayOfMonth && x.TimeEvent <= lastDayOfMonth && x.UserInfoId == userId).ToList();
             var model = new DetailedReportViewModel()
             {
                 DateReport = date,
@@ -102,6 +95,7 @@ namespace HomeBudget.WebApplication.Controllers
         }
         public ActionResult TimeRange()
         {
+            ViewBag.ReportName = "TimeRange";
             var date = DateTime.Now;
             var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
             var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
@@ -111,6 +105,7 @@ namespace HomeBudget.WebApplication.Controllers
         [HttpPost]
         public ActionResult TimeRange(TimeRangeReportViewModel model)
         {
+            ViewBag.ReportName = "TimeRange";
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -120,8 +115,8 @@ namespace HomeBudget.WebApplication.Controllers
         }
         private TimeRangeReportViewModel GetModelForTimeRange(DateTime dateFrom, DateTime dateTo)
         {
-            
-            var finanses = _unitOfWork.FinanceRepository.GetOverview(x => x.TimeEvent >= dateFrom && x.TimeEvent <= dateTo && x.UserInfoId == GetUserInfoId()).ToList();
+            var userId = GetUserInfoId();
+            var finanses = _unitOfWork.FinanceRepository.GetOverview(x => x.TimeEvent >= dateFrom && x.TimeEvent <= dateTo && x.UserInfoId == userId).ToList();
             var model = new TimeRangeReportViewModel()
             {
                 DateFrom = dateFrom,

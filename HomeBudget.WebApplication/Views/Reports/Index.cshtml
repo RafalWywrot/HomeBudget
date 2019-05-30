@@ -1,34 +1,8 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-<div class="col-md-12">
-    <h2>Kategorie raportów</h2>
-</div>
 <div class="row">
-    <div class="col-md-12 categories">
-        <div class="col-md-3 categoryBox margin-top20">
-            <div class="categoryView">
-                <a href="@Url.Action("General","Reports")">
-                    <span class="glyphicon glyphicon-th-large"></span>
-                    <span class="margin-top20">Ogólny</span>
-                </a>
-            </div>
-        </div>
-        <div class="col-md-3 categoryBox margin-top20">
-            <div class="categoryView">
-                <a href="@Url.Action("Detailed","Reports")">
-                    <span class="glyphicon glyphicon-th"></span>
-                    <span class="margin-top20">Szczegółowy</span>
-                </a>
-            </div>
-        </div>
-        <div class="col-md-3 categoryBox margin-top20">
-            <div class="categoryView">
-                <a href="@Url.Action("TimeRange","Reports")">
-                    <span class="glyphicon glyphicon-th-list"></span>
-                    <span class="margin-top20">W danym okresie</span>
-                </a>
-            </div>
-        </div>
+    <div class="col-md-3">
+        @Html.Partial("_ReportOptions")
     </div>
 </div>
