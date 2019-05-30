@@ -65,11 +65,11 @@ namespace HomeBudget.WebApplication.Models
     public class RegisterViewModel
     {
         [Required]
-        [Display(Name = "First name")]
+        [Display(Name = "Imię")]
         public string Name { get; set; }
 
         [Required]
-        [Display(Name = "Last name")]
+        [Display(Name = "Nazwisko")]
         public string LastName { get; set; }
 
         [Required]
