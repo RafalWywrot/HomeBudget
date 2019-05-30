@@ -9,10 +9,14 @@ namespace HomeBudget.WebApplication.Controllers
 {
     public class BaseController : Controller
     {
-        protected UnitOfWork _unitOfWork = null;
+        protected IUnitOfWork _unitOfWork = null;
         public BaseController()
         {
             _unitOfWork = new UnitOfWork();
+        }
+        public BaseController(IUnitOfWork fakeUnitOfWork)
+        {
+            _unitOfWork = fakeUnitOfWork;
         }
         protected int GetUserInfoId()
         {
