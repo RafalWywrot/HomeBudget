@@ -1,15 +1,19 @@
 ﻿@model HomeBudget.WebApplication.Models.RegisterViewModel
 @{
     ViewBag.Title = "Rejestracja";
+    Layout = "~/Views/Shared/_Unathorized.cshtml";
 }
-
-<h2>@ViewBag.Title.</h2>
-
+<style>
+    input,
+    select,
+    textarea {
+        max-width: 450px;
+    }
+</style>
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <h4>Utwórz nowe konto.</h4>
-    <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })

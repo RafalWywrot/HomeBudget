@@ -304,6 +304,8 @@
     <Content Include="Views\Revenues\_CategoryList.cshtml" />
     <Content Include="Views\Expenses\_CategoryList.cshtml" />
     <Content Include="Views\Reports\_ReportOptions.cshtml" />
+    <Content Include="Views\Shared\_Unathorized.cshtml" />
+    <Content Include="Views\Home\BeforeLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,5 +12,9 @@ namespace HomeBudget.WebApplication.Controllers
         {
             return View();
         }
+        public ActionResult Unathorized()
+        {
+            return View("BeforeLogin");
+        }
     }
 }
