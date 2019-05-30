@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeBudget.Domain.Repositories
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private ApplicationDbContext _context = null;
         private IRepository<Category> _categoryRepository = null;
