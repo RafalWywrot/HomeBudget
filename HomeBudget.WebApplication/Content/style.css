@@ -1,0 +1,70 @@
+﻿
+/*.margin-top10 {
+    margin-top: 10px;
+}
+
+.margin-top20 {
+    margin-top: 20px;
+}
+
+.glyphicon {
+    margin-top: 51px;
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.glyphicon-grain:before {
+    content: "\e239";
+}
+
+.financeSum {
+    padding-top: 10px;
+    font-size: 1.3em;
+}*/
+
+.reports li span,
+.reports .panel-body span,
+.reports .panel-heading span,
+.reports .panel-footer span {
+    display: inline-block;
+}
+
+.reportsGeneralList {
+    padding-left: 15px;
+}
+
+    .reportsGeneralList span:first-child {
+        width: 40%;
+    }
+
+    .reportsGeneralList span:nth-child(2) {
+        width: 58%;
+    }
+
+.pad-left0 {
+    padding-left: 0px;
+}
+
+.reportsDetailesList .panel-body {
+    padding: 0;
+}
+
+    .reportsDetailesList .panel-body .list-group {
+        margin-bottom: 0;
+    }
+
+    .reportsDetailesList .panel-body .list-group-item {
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        padding-left: 25px;
+    }
+
+.reportsDetailesList .reportBalance .panel-footer {
+    border: none;
+}
+
+.shoppingLoginView {
+    width: 200px;
+    height: 200px;
+}
