@@ -19,7 +19,8 @@ namespace HomeBudget.WebApplication.Controllers
         }
         public ActionResult ShowForCategory(int categoryId)
         {
-            var reveneus = _unitOfWork.FinanceRepository.GetOverview(x => x.CategoryId == categoryId && x.UserInfoId == GetUserInfoId()).ToList();
+            var userId = GetUserInfoId();
+            var reveneus = _unitOfWork.FinanceRepository.GetOverview(x => x.CategoryId == categoryId && x.UserInfoId == userId).ToList();
             var model = new RevenueWithCategoryViewModel
             {
                 Revenues = Mapper.Map<List<RevenueViewModel>>(reveneus),
