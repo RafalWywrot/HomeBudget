@@ -28,6 +28,11 @@ namespace HomeBudget.WebApplication
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryUI").Include(
+                      "~/Scripts/jquery-{version}.js",
+                      "~/Scripts/jquery-ui.js",
+                      "~/Scripts/site.js"));
         }
     }
 }
