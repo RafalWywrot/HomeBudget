@@ -213,7 +213,6 @@
     <Compile Include="Models\DetailedReportViewModel.cs" />
     <Compile Include="Models\FinanceViewModel.cs" />
     <Compile Include="Models\GeneralReportViewModel.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RevenueViewModel.cs" />
     <Compile Include="Models\RevenueWithCategoryViewModel.cs" />
