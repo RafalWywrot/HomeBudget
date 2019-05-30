@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HomeBudget.Database;
+using HomeBudget.Domain.Repositories;
 using HomeBudget.WebApplication.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,14 @@ namespace HomeBudget.WebApplication.Controllers
     [Authorize]
     public class ExpensesController : BaseController
     {
+        public ExpensesController()
+        {
+
+        }
+        public ExpensesController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+
+        }
         public ActionResult Index()
         {
             var categories = _unitOfWork.CategoryRepository.GetOverview(x => x.IsExpense).ToList();
@@ -51,7 +60,7 @@ namespace HomeBudget.WebApplication.Controllers
                 _unitOfWork.SaveChanges();
                 return RedirectToAction("ShowForCategory", new { categoryId = model.CategoryId });
             }
-            return View(model);
+            return View("Add", model);
         }
         [HttpGet]
         public ActionResult Edit(int id)
@@ -73,7 +82,7 @@ namespace HomeBudget.WebApplication.Controllers
                 _unitOfWork.SaveChanges();
                 return RedirectToAction("ShowForCategory", new { categoryId = model.CategoryId });
             }
-            return View(model);
+            return View("Edit", model);
         }
         [HttpPost]
         public ActionResult Delete(int id)

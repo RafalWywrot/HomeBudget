@@ -8,9 +8,10 @@ namespace HomeBudget.WebApplication.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
-            return View();
+            return View("Index");
         }
         public ActionResult Unathorized()
         {

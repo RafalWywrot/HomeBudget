@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HomeBudget.Database;
+using HomeBudget.Domain.Repositories;
 using HomeBudget.WebApplication.Models;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace HomeBudget.WebApplication.Controllers
     [Authorize]
     public class ReportsController : BaseController
     {
+        public ReportsController() { }
+        public ReportsController(IUnitOfWork unitOfWork) : base(unitOfWork) { }
         public ActionResult Index()
         {
             return View();
@@ -27,7 +30,7 @@ namespace HomeBudget.WebApplication.Controllers
             ViewBag.ReportName = "General";
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("General", model);
             }
             var newModel = GetModelForGeneral(model.DateReport);
             return View(newModel);
@@ -66,7 +69,7 @@ namespace HomeBudget.WebApplication.Controllers
             ViewBag.ReportName = "Detailed";
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("Detailed", model);
             }
             var newmodel = GetModelForDetailed(model.DateReport);
             return View(newmodel);
@@ -108,7 +111,7 @@ namespace HomeBudget.WebApplication.Controllers
             ViewBag.ReportName = "TimeRange";
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("TimeRange", model);
             }
             var newmodel = GetModelForTimeRange(model.DateFrom, model.DateTo);
             return View(newmodel);
