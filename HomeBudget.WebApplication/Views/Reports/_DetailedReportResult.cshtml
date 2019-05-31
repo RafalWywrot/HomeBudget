@@ -2,53 +2,74 @@
 @{
     bool isRevenue = Model.AnyCashOperation ? (Model.Revenues.Select(x => x.Price).Sum() - Model.Expenses.Select(x => x.Price).Sum()) > 0 : false;
 }
-<div class="row margin-top20">
+<style>    
+    .bg-dangerr {
+        background-color: #e19da4;
+    }
+    .bg-successss {
+        background-color: #97d3a4;
+    }
+</style>
+<div class="row" style="margin-top: 20px;">
     <div class="col-xl-8 col-lg-10 reportsDetailesList">
-        <div class="reportsGeneralList">
-
-            <div class="panel panel-default panel-success">
-                <div class="panel-heading ">Przychody</div>
-                <div class="panel-body">
+        <div class="reportsGeneralList w-75">
+            <div class="card border-dark mb-3">
+                <div class="card-header">Przychody</div>
+                <div class="text-dark">
                     <ul class="list-group">
                         @foreach (var revenueCategory in Model.Categories.Where(x => !x.IsExpense))
-                    {
-                        <li class="list-group-item">
-                            <span>@revenueCategory.Name</span>
-                            <span class="text-right">@Model.Revenues.Where(x => x.CategoryId == revenueCategory.Id).Select(x => x.Price).Sum() zł</span>
-                        </li>
-                }
+                        {
+                            <li class="list-group-item">
+                                <span>@revenueCategory.Name</span>
+                                <span class="text-right">@Model.Revenues.Where(x => x.CategoryId == revenueCategory.Id).Select(x => x.Price).Sum() zł</span>
+                            </li>
+                        }
                     </ul>
                 </div>
-                <div class="panel-footer">
-                    <span>Podsumowanie</span>
-                    <span class="text-success text-right">@Model.Revenues.Select(x => x.Price).Sum() zł</span>
+                <div class="text-muted bg-light">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <span>Podsumowanie</span>
+                            <span class="text-success text-right">@Model.Revenues.Select(x => x.Price).Sum() zł</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="panel panel-default panel-danger">
-                <div class="panel-heading">Wydatki</div>
-                <div class="panel-body">
+
+            <div class="card border-dark mb-3">
+                <div class="card-header">Wydatki</div>
+                <div class="text-dark">
                     <ul class="list-group">
                         @foreach (var expenseCategory in Model.Categories.Where(x => x.IsExpense))
-                    {
-                        <li class="list-group-item">
-                            <span>@expenseCategory.Name</span>
-                            <span class="text-right">@Model.Expenses.Where(x => x.CategoryId == expenseCategory.Id).Select(x => x.Price).Sum() zł</span>
-                        </li>
-                }
+                        {
+                            <li class="list-group-item">
+                                <span>@expenseCategory.Name</span>
+                                <span class="text-right">@Model.Expenses.Where(x => x.CategoryId == expenseCategory.Id).Select(x => x.Price).Sum() zł</span>
+                            </li>
+                        }
                     </ul>
                 </div>
-                <div class="panel-footer">
-                    <span>Podsumowanie</span>
-                    <span class="text-danger text-right">@Model.Expenses.Select(x => x.Price).Sum() zł</span>
+                <div class="text-muted bg-light">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <span>Podsumowanie</span>
+                            <span class="text-danger text-right">@Model.Expenses.Select(x => x.Price).Sum() zł</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="panel panel-default @(isRevenue ? "panel-success" : "panel-danger")  reportBalance">
-                <div class="panel-heading">
-                    <span><strong>Bilans</strong></span>
-                    <span class="@(isRevenue ? "text-success" : "text-danger") text-right"><strong>@(@Model.Revenues.Select(x => x.Price).Sum() - @Model.Expenses.Select(x => x.Price).Sum()) zł</strong></span>
+
+            <div class="card reportBalance mb-3">
+                <div class="">
+                    <ul class="list-group ">
+                        <li class="list-group-item @(isRevenue ? "bg-successss" : "bg-dangerr")">
+                            <span><strong>Bilans</strong></span>
+                            <span class="@(isRevenue ? " text-success" : "text-danger" ) text-right"><strong>@(@Model.Revenues.Select(x => x.Price).Sum() - @Model.Expenses.Select(x => x.Price).Sum()) zł</strong></span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
+
