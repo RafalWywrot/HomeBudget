@@ -1,0 +1,10 @@
+﻿@model HomeBudget.Database.Category
+<h4 class="my-4">Kategorie</h4>
+<div class="list-group">
+    <a class="list-group-item @(ViewBag.IsExpense == false ? "active" : "") " href="@Url.Action("ShowForCategoryGroup","Admin", new { isExpense = false })">
+        <span class="margin-top20">Przychody</span>
+    </a>
+    <a class="list-group-item @(ViewBag.IsExpense == true ? "active" : "") " href="@Url.Action("ShowForCategoryGroup","Admin", new { isExpense = true })">
+        <span class="margin-top20">Wydatki</span>
+    </a>
+</div>
