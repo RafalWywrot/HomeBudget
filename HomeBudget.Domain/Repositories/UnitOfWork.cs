@@ -17,6 +17,9 @@ namespace HomeBudget.Domain.Repositories
         {
             this._context = new ApplicationDbContext();
         }
+        /// <summary>
+        /// Context to category table
+        /// </summary>
         public IRepository<Category> CategoryRepository
         {
             get
@@ -28,6 +31,9 @@ namespace HomeBudget.Domain.Repositories
                 return _categoryRepository;
             }
         }
+        /// <summary>
+        /// Context to finance table
+        /// </summary>
         public IRepository<Finance> FinanceRepository
         {
             get
@@ -39,6 +45,9 @@ namespace HomeBudget.Domain.Repositories
                 return _financeRepository;
             }
         }
+        /// <summary>
+        /// Save all records added to context
+        /// </summary>
         public void SaveChanges()
         {
             _context.SaveChanges();

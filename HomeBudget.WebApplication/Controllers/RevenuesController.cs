@@ -15,11 +15,19 @@ namespace HomeBudget.WebApplication.Controllers
     {
         public RevenuesController() {}
         public RevenuesController(IUnitOfWork unitOfWork) : base(unitOfWork) {}
+        /// <summary>
+        /// Get all categories with expense flag set to false
+        /// </summary>
         public ActionResult Index()
         {
             var categories = _unitOfWork.CategoryRepository.GetOverview(x => !x.IsExpense).ToList();
             return View(categories);
         }
+        /// <summary>
+        /// Get all finances for category limited by user id
+        /// </summary>
+        /// <param name="categoryId">Category id</param>
+        /// <returns>Finances for category and all categories options</returns>
         public ActionResult ShowForCategory(int categoryId)
         {
             var userId = GetUserInfoId();
@@ -32,6 +40,10 @@ namespace HomeBudget.WebApplication.Controllers
             ViewBag.CategoryId = categoryId;
             return View(model);
         }
+        /// <summary>
+        /// Show form with add revenue - name, price and datetime of revenue
+        /// <param name="categoryId">Category id</param>
+        /// <returns>Form for add new revenue</returns>
         [HttpGet]
         public ActionResult Add(int categoryId)
         {
@@ -43,6 +55,11 @@ namespace HomeBudget.WebApplication.Controllers
             };
             return View(model);
         }
+        /// <summary>
+        /// Return view when model is invalid
+        /// Add new revenue when model is valid
+        /// </summary>
+        /// <param name="model">Model with name and price</param>
         [HttpPost]
         public ActionResult Add(RevenueViewModel model)
         {
@@ -56,6 +73,11 @@ namespace HomeBudget.WebApplication.Controllers
             }
             return View("Add", model);
         }
+        /// <summary>
+        /// Show form with edit revenue - name, price and datetime of revenue
+        /// </summary>
+        /// <param name="id">Finance id</param>
+        /// <returns>Form for edit revenue</returns>
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -63,6 +85,11 @@ namespace HomeBudget.WebApplication.Controllers
             var model = Mapper.Map<RevenueViewModel>(finanse);
             return View(model);
         }
+        /// <summary>
+        /// Return view when model is invalid
+        /// Edit revenue when model is valid
+        /// </summary>
+        /// <param name="model">Model with name and price</param>
         [HttpPost]
         public ActionResult Edit(RevenueViewModel model)
         {
@@ -78,6 +105,10 @@ namespace HomeBudget.WebApplication.Controllers
             }
             return View("Edit", model);
         }
+        /// <summary>
+        /// Delete finance with revenue category
+        /// </summary>
+        /// <param name="id">Finance id</param>
         [HttpPost]
         public ActionResult Delete(int id)
         {

@@ -14,10 +14,14 @@ namespace HomeBudget.WebApplication.Controllers
     {
         public ReportsController() { }
         public ReportsController(IUnitOfWork unitOfWork) : base(unitOfWork) { }
+        /// <summary>
+        /// Get all report options
+        /// </summary>
         public ActionResult Index()
         {
             return View();
         }
+        /// <returns>View with general report without specific categories restrict by user id</returns>
         public ActionResult General()
         {
             var model = GetModelForGeneral(DateTime.Now);
@@ -35,6 +39,10 @@ namespace HomeBudget.WebApplication.Controllers
             var newModel = GetModelForGeneral(model.DateReport);
             return View(newModel);
         }
+        /// <summary>
+        /// Get first day of this month and show all finances divided into categories for this month restrict by user id
+        /// </summary>
+        /// <param name="dateTime">Get only month for this date</param>
         private GeneralReportViewModel GetModelForGeneral(DateTime dateTime)
         {
             DateTime date = (DateTime)dateTime;
@@ -57,6 +65,7 @@ namespace HomeBudget.WebApplication.Controllers
             ModelState.Remove("DateReport");
             return model;
         }
+        /// <returns>View with detailed report divided into categories only by one moth restrict by user id</returns>
         public ActionResult Detailed()
         {
             var model = GetModelForDetailed(DateTime.Now);
@@ -96,6 +105,7 @@ namespace HomeBudget.WebApplication.Controllers
             ModelState.Remove("DateReport");
             return model;
         }
+        /// <returns>View with detailed report divided into categories with specific date range restrict by user id</returns>
         public ActionResult TimeRange()
         {
             ViewBag.ReportName = "TimeRange";
@@ -116,6 +126,11 @@ namespace HomeBudget.WebApplication.Controllers
             var newmodel = GetModelForTimeRange(model.DateFrom, model.DateTo);
             return View(newmodel);
         }
+        /// <summary>
+        /// Get all finances with date range restrict by user id
+        /// </summary>
+        /// <param name="dateFrom">start from</param>
+        /// <param name="dateTo">start to</param>
         private TimeRangeReportViewModel GetModelForTimeRange(DateTime dateFrom, DateTime dateTo)
         {
             var userId = GetUserInfoId();

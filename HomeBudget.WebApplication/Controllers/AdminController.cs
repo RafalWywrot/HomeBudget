@@ -22,18 +22,32 @@ namespace HomeBudget.WebApplication.Controllers
         {
             return View();
         }
-        // GET: Admin
+        /// <summary>
+        /// When expense is set to true get only expenses categories, otherwise get revenues categories
+        /// </summary>
+        /// <param name="isExpense">isExpense - costs (minus or plus)</param>
+        /// <returns>All categories by expense</returns>
         public ActionResult ShowForCategoryGroup(bool isExpense)
         {
             var categories = _unitOfWork.CategoryRepository.GetOverview(x => x.IsExpense == isExpense).ToList();
             ViewBag.IsExpense = isExpense ? true : false;
             return View(categories);
         }
+        /// <summary>
+        /// Show form with add category
+        /// </summary>
+        /// <param name="isExpense">isExpense - costs (minus or plus)</param>
+        /// <returns>View with category form</returns>
         public ActionResult AddCategory(bool isExpense)
         {
             ViewBag.CategoryTo = isExpense ? "wydatków" : "przychodów";
             return View(new CategoryViewModel { IsExpense = isExpense });
         }
+        /// <summary>
+        /// Add category to specific group of categories, when expense is set to true add category for expenses, otherwise add category as revenue
+        /// </summary>
+        /// <param name="isExpense">isExpense - costs (minus or plus)</param>
+        /// <returns>Add category with expense flag</returns>
         [HttpPost]
         public ActionResult AddCategory(CategoryViewModel category)
         {
@@ -50,10 +64,15 @@ namespace HomeBudget.WebApplication.Controllers
         }
 
         #region reports
+        /// <summary>
+        /// Show all types of categories
+        /// </summary>
         public ActionResult Reports()
         {
             return View();
         }
+
+        /// <returns>View with general report without specific categories</returns>
         public ActionResult General()
         {
             var model = GetModelForGeneral(DateTime.Now);
@@ -70,6 +89,7 @@ namespace HomeBudget.WebApplication.Controllers
             var newModel = GetModelForGeneral(model.DateReport);
             return View(newModel);
         }
+        /// <returns>View with detailed report divided into categories only by one moth</returns>
         public ActionResult Detailed()
         {
             var model = GetModelForDetailed(DateTime.Now);
@@ -87,6 +107,7 @@ namespace HomeBudget.WebApplication.Controllers
             var newmodel = GetModelForDetailed(model.DateReport);
             return View(newmodel);
         }
+        /// <returns>View with detailed report divided into categories with specific date range</returns>
         public ActionResult TimeRange()
         {
             ViewBag.ReportName = "TimeRange";
@@ -107,6 +128,11 @@ namespace HomeBudget.WebApplication.Controllers
             var newmodel = GetModelForTimeRange(model.DateFrom, model.DateTo);
             return View(newmodel);
         }
+        /// <summary>
+        /// Get all finances with date range
+        /// </summary>
+        /// <param name="dateFrom">start from</param>
+        /// <param name="dateTo">start to</param>
         private TimeRangeReportViewModel GetModelForTimeRange(DateTime dateFrom, DateTime dateTo)
         {
             var finanses = _unitOfWork.FinanceRepository.GetOverview(x => x.TimeEvent >= dateFrom && x.TimeEvent <= dateTo).ToList();
@@ -128,6 +154,10 @@ namespace HomeBudget.WebApplication.Controllers
             ModelState.Remove("DateTo");
             return model;
         }
+        /// <summary>
+        /// Get first day of this month and show all finances divided into categories for this month
+        /// </summary>
+        /// <param name="dateTime">Get only month for this date</param>
         private GeneralReportViewModel GetModelForGeneral(DateTime dateTime)
         {
             DateTime date = (DateTime)dateTime;
@@ -149,6 +179,10 @@ namespace HomeBudget.WebApplication.Controllers
             ModelState.Remove("DateReport");
             return model;
         }
+        /// <summary>
+        /// Get first day of this month and show summary of finances for this month
+        /// </summary>
+        /// <param name="dateTime">Get only month for this date</param>
         private DetailedReportViewModel GetModelForDetailed(DateTime date)
         {
             var firstDayOfMonth = new DateTime(date.Year, date.Month, 1);
