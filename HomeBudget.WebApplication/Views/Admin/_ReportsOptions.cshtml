@@ -1,0 +1,12 @@
+﻿<h4 class="my-4">Kategorie raportów</h4>
+<div class="list-group">
+    <a class="list-group-item @(ViewBag.ReportName == "General" ? "active" : "") " href="@Url.Action("General","Admin", new { })">
+        <span>Ogólny</span>
+    </a>
+    <a class="list-group-item @(ViewBag.ReportName == "Detailed" ? "active" : "") " href="@Url.Action("Detailed","Admin", new { })">
+        <span>Szczegółowy</span>
+    </a>
+    <a class="list-group-item @(ViewBag.ReportName == "TimeRange" ? "active" : "") " href="@Url.Action("TimeRange","Admin", new { })">
+        <span>W danym okresie</span>
+    </a>
+</div>

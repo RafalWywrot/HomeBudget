@@ -196,6 +196,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ExpensesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="Helpers\ValidatinAttributes\MaxValueAttribute.cs" />
     <Compile Include="Helpers\ValidatinAttributes\MinValueAttribute.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\DetailedReportViewModel.cs" />
     <Compile Include="Models\FinanceViewModel.cs" />
     <Compile Include="Models\GeneralReportViewModel.cs" />
@@ -305,6 +307,19 @@
     <Content Include="Views\Reports\_ReportOptions.cshtml" />
     <Content Include="Views\Shared\_Unathorized.cshtml" />
     <Content Include="Views\Home\BeforeLogin.cshtml" />
+    <Content Include="Views\Shared\_Admin.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Categories.cshtml" />
+    <Content Include="Views\Admin\ShowForCategoryGroup.cshtml" />
+    <Content Include="Views\Admin\_CategoryOptions.cshtml" />
+    <Content Include="Views\Admin\AddCategory.cshtml" />
+    <Content Include="Views\Admin\ReportDetailed.cshtml" />
+    <Content Include="Views\Admin\_ReportsOptions.cshtml" />
+    <Content Include="Views\Admin\Detailed.cshtml" />
+    <Content Include="Views\Admin\_DetailedReportResult.cshtml" />
+    <Content Include="Views\Admin\Reports.cshtml" />
+    <Content Include="Views\Admin\General.cshtml" />
+    <Content Include="Views\Admin\TimeRange.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
