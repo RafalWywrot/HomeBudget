@@ -74,6 +74,9 @@ namespace HomeBudget.WebApplication.Controllers
             {
                 return View("Login", model);
             }
+            var user = await UserManager.FindByEmailAsync(model.Email);
+            if (user == null)
+                return View(model);
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -81,6 +84,9 @@ namespace HomeBudget.WebApplication.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    if (UserManager.IsInRole(user.Id, "Admin"))
+                        return RedirectToAction("Index", "Admin");
+
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
