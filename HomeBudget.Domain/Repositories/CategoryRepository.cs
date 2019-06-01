@@ -17,7 +17,7 @@ namespace HomeBudget.Domain.Repositories
         }
         public void Add(Category entity)
         {
-            throw new NotImplementedException();
+            _context.Categories.Add(entity);
         }
 
         public void Delete(Category entity)
