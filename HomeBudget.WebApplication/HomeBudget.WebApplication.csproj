@@ -313,7 +313,10 @@
     <Content Include="Views\Admin\ShowForCategoryGroup.cshtml" />
     <Content Include="Views\Admin\_CategoryOptions.cshtml" />
     <Content Include="Views\Admin\AddCategory.cshtml" />
+    <Content Include="Views\Admin\ReportDetailed.cshtml" />
     <Content Include="Views\Admin\_ReportsOptions.cshtml" />
+    <Content Include="Views\Admin\Detailed.cshtml" />
+    <Content Include="Views\Admin\_DetailedReportResult.cshtml" />
     <Content Include="Views\Admin\Reports.cshtml" />
     <Content Include="Views\Admin\General.cshtml" />
   </ItemGroup>
