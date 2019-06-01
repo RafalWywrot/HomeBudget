@@ -1,0 +1,97 @@
+﻿@model HomeBudget.WebApplication.Models.GeneralReportViewModel
+
+@{
+    ViewBag.Title = "General";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+    bool isRevenue = Model.AnyCashOperation ? (Model.Revenues - Model.Expenses) > 0 : false;
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet">
+<link href="~/Content/style.css" rel="stylesheet">
+<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
+<div class="row reports">
+    <div class="col-md-3">
+        @Html.Partial("_ReportsOptions")
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="col-md-6">Ogólny miesięczny raport</h3>
+            </div>
+        </div>
+        <div class="row">
+            @Html.HiddenFor(x => x.DateReport, new { @class = "dateReportTemplate" })
+            @using (Html.BeginForm("General", "Admin", FormMethod.Post, new { @class = "form-inline col-md-6", @role = "form" }))
+            {
+                <div class="form-group col-md-9">
+                    <label class="col-md-5 control-label pad-left0" for="DateReport" style="margin-top: 7px;">Miesiąc raportu</label>
+                    <div class="col-md-7">
+                        @Html.EditorFor(model => model.DateReport, new { htmlAttributes = new { @class = "form-control date-picker", @placeholder = "Wybierz date" } })
+                        @Html.ValidationMessageFor(model => model.DateReport, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <button type="submit" class="col-md-3 btn btn-default">Wybierz</button>
+            }
+        </div>
+        @if (Model.AnyCashOperation)
+        {
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-6">
+                    <div class="margin-top20">
+                        <ul class="list-group reportsGeneralList">
+                            <li class="list-group-item">
+                                <span class="">Łaczny przychod: </span>
+                                <span class="text-success text-right">@Model.Revenues zł</span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="">Łaczny wydatek: </span>
+                                <span class="text-danger text-right">@Model.Expenses zł</span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class=""><strong>BILANS:</strong> </span>
+                                <span class="@(isRevenue ? "text-success" : "text-danger")  text-right"><strong>@(@Model.Revenues - @Model.Expenses) zł</strong></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning margin-top20" role="alert">
+                W tym miesiącu nie odnotowano żadnych operacji finansowych
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryUI")
+    <script type="text/javascript">
+        $.datepicker.setDefaults($.datepicker.regional['pl']);
+        $(document).ready(function () {
+            $('.date-picker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                dateFormat: 'MM yy',
+                onClose: function (dateText, inst) {
+                    var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                    $(this).datepicker('setDate', new Date(year, month, 1));
+                }
+            });
+            var date = document.getElementsByClassName('dateReportTemplate')[0].value;
+            var day = date.slice(0, 2);
+            var month = date.slice(3, 5) - 1;
+            var year = date.slice(6, 10);
+            $('.date-picker').datepicker("setDate", new Date(year, month, day));
+        });
+    </script>
+}
+
